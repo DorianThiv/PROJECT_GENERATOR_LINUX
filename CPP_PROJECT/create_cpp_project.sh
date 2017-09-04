@@ -46,4 +46,5 @@ then
 	fi
 else
        	echo "[x] Erreur dans le chemin."
+	echo "[i] Commande : -p <path>"
 fi
