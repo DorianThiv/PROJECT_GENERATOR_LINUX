@@ -1,0 +1,42 @@
+# Builds YOUR project.
+
+# ALL .cpp file 
+objects=main.o
+src=src
+testsrc=tests
+testobjects=main_test.o
+
+cc=g++
+cflags=-std=c++11 -Wall
+testcflags=$(cflags) -I$(src)
+
+.PHONY: prog
+prog: main
+	./main
+
+.PHONY: test
+test: main_test
+	./main_test
+
+%.o: $(src)/%.cpp
+	$(cc) -c -o $@ $^ $(cflags)
+
+
+%.o: $(testsrc)/%.cpp
+	$(cc) -c -o $@ $^ $(testcflags)
+
+main: $(objects)
+	$(cc) -o $@ $^ $(cflags)
+
+main_test: $(testobjects)
+	$(cc) -o $@ $^ $(testcflags)
+
+
+.PHONY: doc
+doc:
+	doxygen
+
+.PHONY: clean
+clean:
+	rm -rf *.o core main main_test
+
